@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+<!--------------nav--------->
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+      <a href="/" class="navbar-brand ms-lg-5">
+          <h1 class="m-0 text-uppercase text-dark"><i class="bi bi-shop fs-1 text-primary me-3" ></i>PetShop</h1>
+      </a>
+      
+  
+  <!---<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('home')}}">Store</a>
+          </li>
+       
+          
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('aboutus')}}">About us</a>
+          </li>
+       
+           <li class="nav-item">
+            <a href="{{url_for('customerLogin')}}" class="nav-link">Login</a>
+          </li>
+  
+        </ul>
+        
+      </div>
+    </nav>
+  </div>
+<!---============== END OF NAV BAR ==================-->
+
+<div class="d-flex mt-5 justify-content-center" style="height: 100vh;">
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 ">
+            <h3 class="h3 mb-3 font-weight-normal text-center text-dark mt-6">Register</h3>
+            
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <form action="" method="post">
+        {{ form.csrf_token }}
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                {{ render_field(form.name, class="form-control")}}
+                {{ render_field(form.username,class="form-control")}}
+                {{ render_field(form.email,class="form-control")}}
+                {{ render_field(form.password, class="form-control")}}
+                {{ render_field(form.confirm ,class="form-control")}}
+                <div class="mt-5">
+                {{ form.profile() }}
+            </div>
+                </div>
+                <div class="col-md-4">
+                {{ render_field(form.country,class="form-control")}}
+                
+                {{ render_field(form.city, class="form-control")}}
+                {{ render_field(form.contact, class="form-control")}}
+                {{ render_field(form.address, class="form-control")}}
+               
+                {{ render_field(form.zipcode, class="form-control")}}
+                <div class="mt-5">
+                {{ form.submit(class="btn btn-info float-right") }}
+
+            </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </form>
+
+    <p class="mt-5 mb-3 text-muted text-center fixed-bottom">© PetShop-2024</p>
+</div>
+</div>
+
+{% endblock content %}

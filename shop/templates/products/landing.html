@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+      <a href="/" class="navbar-brand ms-lg-5">
+          <h1 class="m-0 text-uppercase text-dark"><i class="bi bi-shop fs-1 text-primary me-3" href="/"></i>PetShop</h1>
+      </a>
+      
+  
+  <!---<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('home')}}">All Products</a>
+          </li>
+       
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pets
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for brand in brands %}
+              <a class="dropdown-item" href="{{url_for('get_brand', id = brand.id)}}">{{brand.name}}</a>
+              {% endfor %} 
+            </div>
+  
+         </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories %}
+              <a class="dropdown-item" href="{{url_for('get_cat', id = category.id)}}">{{category.name}}</a>
+              {% endfor %} 
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('aboutus')}}">About us</a>
+          </li>
+          {% if current_user.is_authenticated %}
+             <li class="nav-item">
+               <a href="{{url_for('customer_logout')}}" class="nav-link"> Logout</a>
+             </li>
+             {% else %}
+             <li class="nav-item">
+              <a href="{{url_for('customer_register')}}" class="nav-link">Sign in</a>
+            </li>
+             <li class="nav-item">
+              <a href="{{url_for('customerLogin')}}" class="nav-link">login</a>
+            </li>
+            {% endif %}
+  
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <!-------------------------------------------->
+    <!-------------------------------------------->
+      <!-------------------------------------------->
+        <!-------------------------------------------->
+          <!-------------------------------------------->
+  
+          <style>
+            .parent {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        height: 725px;
+        width: 100%;
+        }
+    
+        .div1 { grid-area: 1 / 1 / 6 / 9;
+           /*background-color: blueviolet; */
+           /*background-image: url(./static/image/hero.jpg);*/
+           background-image: url(./static/image/background1.png);
+           background-position: 0%;
+           background-size: cover;
+          }
+        .div2 { 
+          grid-area: 2 / 2 / 4 / 5; 
+          /*background-color: rgb(226, 43, 195);*/
+          
+        }
+        
+        .div3 { grid-area: 4 / 3 / 5 / 4; /**background-color: rgb(36, 27, 161);*/}
+
+        .title {
+              font-weight: bold;
+              color: #C47CA3; 
+              margin-bottom: 10px;
+              font-size: 50px
+          }
+
+          .text {
+              color: rgb(39, 0, 65);margin-top: 20px; margin-bottom: 20px; line-height: 1.75; font-size: 20px;/* Couleur du texte en blanc */
+          } 
+          
+          /*==================================================================================*/
+ 
+          
+                .btnx {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #C47CA3;
+          color: #000;
+          text-decoration: none;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+          padding: auto;
+          padding: 3%;
+          padding-right: 9%;
+          padding-left: 9%;
+          
+        }
+
+        .btnx:hover {
+          background-color: #000;
+          color: #fff;
+        }
+        
+    
+       </style>
+       
+       <div class="parent">
+        <div class="div1"> </div>
+        <div class="div2">
+
+         
+          <h1 class="title">Make Your Pets Happy</h1>
+                    <p class="text">Discover a world of love and care for your furry<br>  friends at PetShop,
+                        From cozy beds to playful toys,<br>  we have everything your pets need. Shop now and<br>  make every moment special for your 
+                        beloved companions!</p>                                                       
+                    <a href="{{url_for('home')}}" class="btnx">shop now!</a>                                                                                         
+       </div>
+       <div class="div3"> </div>
+        </div>
+        <p class="mt-5 mb-3 text-muted text-center">© PetShop-2024</p>
+
+{% endblock content %}

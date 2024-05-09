@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+      <a href="{{url_for('landing')}}" class="navbar-brand ms-lg-5">
+          <h1 class="m-0 text-uppercase text-dark"><i class="bi bi-shop fs-1 text-primary me-3"></i>PetShop</h1>
+      </a>
+      
+  
+  <!---<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('landing')}}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('home')}}">All Products</a>
+          </li>
+       
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pets
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for brand in brands %}
+              <a class="dropdown-item" href="{{url_for('get_brand', id = brand.id)}}">{{brand.name}}</a>
+              {% endfor %} 
+            </div>
+  
+         </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories %}
+              <a class="dropdown-item" href="{{url_for('get_cat', id = category.id)}}">{{category.name}}</a>
+              {% endfor %} 
+            </div>
+          </li>
+          {% if current_user.is_authenticated %}
+             <li class="nav-item">
+               <a href="{{url_for('customer_logout')}}" class="nav-link"> Logout</a>
+             </li>
+             {% else %}
+             <li class="nav-item">
+              <a href="{{url_for('customer_register')}}" class="nav-link">Sign in</a>
+            </li>
+             <li class="nav-item">
+              <a href="{{url_for('customerLogin')}}" class="nav-link">login</a>
+            </li>
+            {% endif %}
+  
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <!-------------------------------------------->
+    <!-------------------------------------------->
+      <!-------------------------------------------->
+        <!-------------------------------------------->
+          <!-------------------------------------------->
+  
+        
+        <style>
+          .parent {
+          display: grid;
+          grid-template-columns: repeat(8, 1fr);
+          grid-template-rows: repeat(8, 1fr);
+          grid-column-gap: 0px;
+          grid-row-gap: 0px;
+          }
+
+          .aboutusimg { grid-area: 1 / 1 / 6 / 9;  background-image: url(./static/image/aboutus1.png) ;
+                    
+           background-size: contain; background-position: center bottom; padding-bottom: 10px;
+                    }
+          .aboutus { grid-area: 5 / 3 / 6 / 7; }
+          .text1 { grid-area: 6 / 3 / 9 / 7; text-align: center; margin-top: 30px; line-height: 1.75;}
+            
+            
+
+            .parent1 {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            grid-column-gap: 0px;
+            grid-row-gap: 0px;
+            }
+
+            .div1 { grid-area: 1 / 3 / 6 / 7; line-height: 1.75; text-align: center;}
+            .text {
+              color: white;margin-top: 20px; margin-bottom: 20px; line-height: 1.75; font-size: 25px; /* Couleur du texte en blanc */
+          } 
+          .title {
+            text-align: center; font-size: 80px; color: white;
+
+          }
+
+
+        </style>
+        <div class="parent">
+            <div class="aboutusimg"> </div>
+            <div class="aboutus"><h1 class="title">About us</h1> </div>
+            <div class="text1"> <p>Welcome to <b>PetShop</b>, where passion meets proficiency in an e-commerce creation <br> by <b>Kaoutar</b> . As fervent animal lovers, my journey through the </b>ALX</b> specialisation Programme culminated in the design and development of this platform, dedicated to fellow animal enthusiasts. <br>
+            <b>PetShop</b> is not just an online store; it's an embodiment of my commitment to animals and the mastery acquired during the <b>ALX</b> programme. As a final project, i present a seamless, visually captivating e-commerce experience tailored for those who cherish their animal companions. <br><br>
+
+              Rooted in the <b>ALX</b> curriculum, PetShop reflects my dedication to excellence in web design and development. Every detail, from the user-friendly interface to the cutting-edge functionality, is a testament to our belief that technology can elevate the bond between pets and their owners.
+            </p>
+            </div>
+            </div>
+        <div class="parent1">
+                <div class="div1"> 
+                  <p>
+
+Explore PetShop to discover a curated selection of high-quality animal products designed for those who adore their pets. Our website, shaped by the skills nurtured at ALX, embodies innovation and a deep understanding of user needs.
+
+Kaoutar  invite you to indulge in the world of PetShop, where our love for animals fuels our commitment to delivering an unparalleled online shopping experience. Thank you for joining us on this exciting journey, and we look forward to serving all the animal lovers out there with the utmost dedication and care.</p>
+                  
+</div>
+                </div>
+                <p class="mt-5 mb-3 text-muted text-center">© PetShop-2024</p>  
+{% endblock content %}

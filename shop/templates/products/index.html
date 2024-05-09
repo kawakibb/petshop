@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+<!-------navbar----------->
+<div class="container">
+  <nav class="navbar navbar-expand-lg bg-white navbar-light shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+    <a href="{{url_for('landing')}}" class="navbar-brand ms-lg-5">
+        <h1 class="m-0 text-uppercase text-dark"><i class="bi bi-shop fs-1 text-primary me-3" href="/"></i>PetShop</h1>
+    </a>
+    
+
+<!---<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('home')}}">All Products</a>
+        </li>
+     
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Pets
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for brand in brands %}
+            <a class="dropdown-item" href="{{url_for('get_brand', id = brand.id)}}">{{brand.name}}</a>
+            {% endfor %} 
+          </div>
+
+       </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for category in categories %}
+            <a class="dropdown-item" href="{{url_for('get_cat', id = category.id)}}">{{category.name}}</a>
+            {% endfor %} 
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('aboutus')}}">About us</a>
+        </li>
+        {% if current_user.is_authenticated %}
+             
+             <li class="nav-item">
+               <a href="{{url_for('customer_logout')}}" class="nav-link"> Logout</a>
+             </li>
+             <li class="nav-item">
+              <a href="{{url_for('customer_logout')}}" class="nav-link font-weight-bold">Hi {{current_user.name}} !!</a>
+            </li>
+             {% else %}
+             <li class="nav-item">
+              <a href="{{url_for('customer_register')}}" class="nav-link">Sign in</a>
+            </li>
+             <li class="nav-item">
+              <a href="{{url_for('customerLogin')}}" class="nav-link">login</a>
+            </li>
+            {% endif %}
+
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+</div>
+<!-------end navbar------------>
+<div class="container">
+    <div class="row">
+      {% if brand %}
+
+      {% for b in brand %}
+      <div class="col-md-3 mt-5 ">
+        <div class="card custom-card h-100 w-100" >
+              <img src="{{url_for('static', filename='image/' + b.image_1)}}" alt="{{b.name}}" class="card-img-top">
+              <div class="card-body" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                  <h5 class="text-center">{{b.name}}</h5>
+                  
+
+              </div>
+              <div class="card-footer">
+                <p class="text-center">Price $ {{b.price}}</p>
+                  <a href="{{url_for('single_page',id=b.id)}}" class="float-left btn btn-sm btn-primary">details</a>
+                  <a href="" class="float-right btn btn-sm btn-warning">Add to cart</a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+
+
+      {% elif category %}
+      {% for cat in category %}
+      <div class="col-md-3 mt-5 ">
+        <div class="card custom-card h-100 w-100" >
+              <img src="{{url_for('static', filename='image/' + cat.image_1)}}" alt="{{cat.name}}" class="card-img-top">
+              <div class="card-body" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                  <h5 class="text-center">{{cat.name}}</h5>
+                  
+
+              </div>
+              <div class="card-footer">
+                <p class="text-center">Price $ {{cat.price}}</p>
+                  <a href="{{url_for('single_page',id=cat.id)}}" class="float-left btn btn-sm btn-primary">details</a>
+                  <a href="" class="float-right btn btn-sm btn-warning">Add to cart</a>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+
+
+      {% else %}
+        {% for product in products%}
+        <div class="col-md-3 mt-5 ">
+            <div class="card custom-card h-100 w-100" >
+                <img src="{{url_for('static', filename='image/' + product.image_1)}}" alt="{{product.name}}" class=" card-img-top">
+              <div class="card-body" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <h5 class="text-center">{{product.name}}</h5>
+                    
+
+                </div>
+                <div class="card-footer">
+                  <p class="text-center">Price $ {{product.price}}</p>
+                    <a href="{{url_for('single_page',id=product.id)}}" class="float-left btn btn-sm btn-primary">details</a>
+                    <a href="" class="float-right btn btn-sm btn-warning">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+<p class="mt-5 mb-3 text-muted text-center">© PetShop-2024</p>
+{% endblock content %}
